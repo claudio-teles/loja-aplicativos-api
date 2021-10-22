@@ -8,23 +8,23 @@
 \u000d\u000a    alter table aplicativo_comentarios \u000d\u000a       add constraint UK_29sw2t1jh8ly5j6lqpremffjh unique (comentarios_uuid)
 \u000d\u000a    alter table aplicativo_comentarios \u000d\u000a       add constraint FKpht0aefaaeahxvremqte6h8q8 \u000d\u000a       foreign key (comentarios_uuid) \u000d\u000a       references comentario
 \u000d\u000a    alter table aplicativo_comentarios \u000d\u000a       add constraint FK18kjrr6p0umgrq9mpre7latb9 \u000d\u000a       foreign key (aplicativo_uuid) \u000d\u000a       references aplicativo
-INSERT INTO APLICATIVO VALUES('63e8be211d724c5aa360a4b484d290c6',0,0,'Descri\u00e7\u00e3o 1',NULL,'Aplicavivo 1',18.90,0)
+INSERT INTO APLICATIVO VALUES('34a1ca86034b418ba192d7901f1f9cea',0,0,'Descri\u00e7\u00e3o 1',NULL,'Aplicavivo 1',18.90,0)
 COMMIT
 /*C1*/SET SCHEMA SYSTEM_LOBS
-INSERT INTO LOB_IDS VALUES(6,0,0,30)
-ALTER SEQUENCE SYSTEM_LOBS.LOB_ID RESTART WITH 7
+INSERT INTO LOB_IDS VALUES(7,0,0,30)
+ALTER SEQUENCE SYSTEM_LOBS.LOB_ID RESTART WITH 8
 COMMIT
-/*C13*/DELETE FROM APLICATIVO WHERE UUID='63e8be211d724c5aa360a4b484d290c6'
-INSERT INTO APLICATIVO VALUES('63e8be211d724c5aa360a4b484d290c6',0,0,'Descri\u00e7\u00e3o 1',6,'Aplicavivo 1',18.90,0)
+/*C13*/DELETE FROM APLICATIVO WHERE UUID='34a1ca86034b418ba192d7901f1f9cea'
+INSERT INTO APLICATIVO VALUES('34a1ca86034b418ba192d7901f1f9cea',0,0,'Descri\u00e7\u00e3o 1',7,'Aplicavivo 1',18.90,0)
 SET SCHEMA SYSTEM_LOBS
-DELETE FROM LOB_IDS WHERE LOB_ID=6
-INSERT INTO LOB_IDS VALUES(6,0,1,30)
+DELETE FROM LOB_IDS WHERE LOB_ID=7
+INSERT INTO LOB_IDS VALUES(7,0,1,30)
 COMMIT
 SET SCHEMA PUBLIC
 \u000d\u000a    drop table if exists aplicativo CASCADE 
 SET SCHEMA SYSTEM_LOBS
-DELETE FROM LOB_IDS WHERE LOB_ID=6
-INSERT INTO LOB_IDS VALUES(6,0,0,30)
+DELETE FROM LOB_IDS WHERE LOB_ID=7
+INSERT INTO LOB_IDS VALUES(7,0,0,30)
 COMMIT
 SET SCHEMA PUBLIC
 \u000d\u000a    drop table if exists aplicativo_comentarios CASCADE 
