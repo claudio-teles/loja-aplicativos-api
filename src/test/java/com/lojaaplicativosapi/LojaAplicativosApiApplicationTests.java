@@ -50,7 +50,7 @@ class LojaAplicativosApiApplicationTests {
 	@Test
 	@Order(2)
 	void fazerUploadExecutavel() {
-		aplicativoSerivice.upload("executaveis_teste/app1.apk", IdUtilSingleton.getInstancia().getUuid());
+		aplicativoSerivice.upload("upload_teste/app1.apk", IdUtilSingleton.getInstancia().getUuid());
 		
 		System.out.println("UUID: "+IdUtilSingleton.getInstancia().getUuid());
 		Assertions.assertNotNull(aplicativoSerivice.localizarPeloId(IdUtilSingleton.getInstancia().getUuid()).getExecutavel());
