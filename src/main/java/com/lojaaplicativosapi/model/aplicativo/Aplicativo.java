@@ -3,6 +3,7 @@ package com.lojaaplicativosapi.model.aplicativo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,7 +38,8 @@ public class Aplicativo implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	@Column(length = 16)
+	private UUID uuid;
 	@Column(nullable = false, length = 50)
 	private String nome;
 	private BigDecimal preco;

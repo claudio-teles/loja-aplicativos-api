@@ -17,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.lojaaplicativosapi.enumtype.Tipo;
 import com.lojaaplicativosapi.model.aplicativo.Aplicativo;
 import com.lojaaplicativosapi.servico.AplicativoSerivice;
+import com.lojaaplicativosapi.util.IdUtilSingleton;
 
 @SpringBootTest
 @TestMethodOrder(OrderAnnotation.class)
@@ -30,7 +31,7 @@ class LojaAplicativosApiApplicationTests {
 	void criarAplicativo() {
 		Aplicativo aplicativo1 = Aplicativo
 								.builder()
-									.id(null)
+									.uuid(null)
 									.nome("Aplicavivo 1")
 									.preco(new BigDecimal("18.90"))
 									.tipo(Tipo.ANDROID)
@@ -41,8 +42,9 @@ class LojaAplicativosApiApplicationTests {
 		aplicativoSerivice.cadastrarOuAtualizar(aplicativo1);
 		
 		Aplicativo a = aplicativoSerivice.cadastrarOuAtualizar(aplicativo1);
+		IdUtilSingleton.getInstancia().setUuid(a.getUuid());
 		
-		Assertions.assertNotNull(a.getId());
+		Assertions.assertNotNull(a.getUuid());
 	}
 	
 	@Test
@@ -51,7 +53,7 @@ class LojaAplicativosApiApplicationTests {
 		try {
 			byte executavelApp1[] = Files.readAllBytes(Path.of("executaveis_teste/app1.apk"));
 			
-			Aplicativo aplicativo1ComExecutavel = aplicativoSerivice.localizarPeloId(1L);
+			Aplicativo aplicativo1ComExecutavel = aplicativoSerivice.localizarPeloId(IdUtilSingleton.getInstancia().getUuid());
 			aplicativo1ComExecutavel.setExecutavel(executavelApp1);
 			aplicativoSerivice.cadastrarOuAtualizar(aplicativo1ComExecutavel);
 			
@@ -59,8 +61,8 @@ class LojaAplicativosApiApplicationTests {
 			e.printStackTrace();
 		}
 		
-		
-		Assertions.assertNotNull(aplicativoSerivice.localizarPeloId(1L).getExecutavel());
+		System.out.println("UUID: "+IdUtilSingleton.getInstancia().getUuid());
+		Assertions.assertNotNull(aplicativoSerivice.localizarPeloId(IdUtilSingleton.getInstancia().getUuid()).getExecutavel());
 	}
 	
 }
