@@ -24,12 +24,13 @@ class LojaAplicativosApiApplicationTests {
 	
 	@Autowired
 	private AplicativoSerivice aplicativoSerivice;
-
+	
 	@Test
 	@Order(1)
 	void criarAplicativo() {
-		Aplicativo aplicativo1 = Aplicativo.builder()
-									.uuid(null)
+		Aplicativo aplicativo1 = Aplicativo
+								.builder()
+									.id(null)
 									.nome("Aplicavivo 1")
 									.preco(new BigDecimal("18.90"))
 									.tipo(Tipo.ANDROID)
@@ -37,27 +38,29 @@ class LojaAplicativosApiApplicationTests {
 									.comentarios(new ArrayList<>())
 								.build();
 		
-		Aplicativo appSalvo = aplicativoSerivice.cadastrarOuAtualizar(aplicativo1);
+		aplicativoSerivice.cadastrarOuAtualizar(aplicativo1);
 		
-		System.out.println("App Salvo: "+appSalvo);
+		Aplicativo a = aplicativoSerivice.cadastrarOuAtualizar(aplicativo1);
 		
-		Aplicativo aplicativo1ComExecutavel = null;
+		Assertions.assertNotNull(a.getId());
+	}
+	
+	@Test
+	@Order(2)
+	void fazerUploadExecutavel() {
 		try {
-			byte executavelApp1[] = Files.readAllBytes(Path.of("executativeis_teste/app1.apk"));
+			byte executavelApp1[] = Files.readAllBytes(Path.of("executaveis_teste/app1.apk"));
 			
-			System.out.println("idAppSalvo1: "+appSalvo.getUuid());
-			aplicativo1ComExecutavel = aplicativoSerivice.localizarPeloId(appSalvo.getUuid());
+			Aplicativo aplicativo1ComExecutavel = aplicativoSerivice.localizarPeloId(1L);
 			aplicativo1ComExecutavel.setExecutavel(executavelApp1);
 			aplicativoSerivice.cadastrarOuAtualizar(aplicativo1ComExecutavel);
-			System.out.println("App com executavel: "+aplicativo1ComExecutavel);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 		
-		Assertions.assertNotNull(appSalvo.getUuid());
-		Assertions.assertNotNull(aplicativoSerivice.localizarPeloId(appSalvo.getUuid()).getExecutavel());
+		Assertions.assertNotNull(aplicativoSerivice.localizarPeloId(1L).getExecutavel());
 	}
 	
 }

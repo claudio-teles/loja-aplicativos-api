@@ -1,7 +1,5 @@
 package com.lojaaplicativosapi.servico;
 
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +19,7 @@ public class AplicativoSerivice {
 		return null;
 	}
 	
-	public Aplicativo localizarPeloId(UUID id) {
+	public Aplicativo localizarPeloId(Long id) {
 		return aplicativoRepository.getById(id);
 	}
 
