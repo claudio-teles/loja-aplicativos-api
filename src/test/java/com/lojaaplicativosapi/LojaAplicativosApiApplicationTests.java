@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Assertions;
@@ -63,6 +64,34 @@ class LojaAplicativosApiApplicationTests {
 		
 		System.out.println("UUID: "+IdUtilSingleton.getInstancia().getUuid());
 		Assertions.assertNotNull(aplicativoSerivice.localizarPeloId(IdUtilSingleton.getInstancia().getUuid()).getExecutavel());
+	}
+	
+	@Test
+	@Order(3)
+	void fazerDownloadExecutavel() {
+		try {
+			Long quantidadeInicialDeArquvos = Files.list(Path.of("download-teste")).count(); // quantidade 0
+			
+			Aplicativo aplicativo1ComExecutavel = aplicativoSerivice.localizarPeloId(IdUtilSingleton.getInstancia().getUuid());
+			
+			Files.write(Path.of("download-teste/app1.apk"), aplicativo1ComExecutavel.getExecutavel(), StandardOpenOption.CREATE);
+			
+			Long quantidadeFinalDeArquvos = Files.list(Path.of("download-teste")).count(); // quantidade 1
+			
+			Assertions.assertTrue(quantidadeInicialDeArquvos != quantidadeFinalDeArquvos); // quantidades de arquivos diferentes na pasta download-teste
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	@Order(4)
+	void deleteArquivoBaixado() {
+		try {
+			Assertions.assertTrue(Files.deleteIfExists(Path.of("download-teste/app1.apk")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
