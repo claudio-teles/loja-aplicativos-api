@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class AvaliacaoAplicativoDTO {
 	
 	private UUID uuid;
-	private byte avaliacaoIndividual;
+	private int avaliacaoIndividual;
 
 }

@@ -67,7 +67,7 @@ class LojaAplicativosApiApplicationTests {
 					.nome("Aplicavivo 4")
 					.preco(new BigDecimal("48.90"))
 					.tipo(Tipo.LINUX)
-					.avaliacaoGeral((byte) 4) // 4 estrelas
+					.avaliacaoGeral(4) // 4 estrelas
 					.descricao("Descrição 4")
 					.comentarios(new ArrayList<>())
 					.build();
@@ -218,7 +218,7 @@ class LojaAplicativosApiApplicationTests {
 	void fazerUmaAvaliacaoIndividualNoAplicativoTeste() {
 		AvaliacaoAplicativoDTO avaliacaoAplicativo4 = new AvaliacaoAplicativoDTO();
 		avaliacaoAplicativo4.setUuid(IdUtilSingleton.getInstancia().getUuidLinux());
-		avaliacaoAplicativo4.setAvaliacaoIndividual((byte) 5);
+		avaliacaoAplicativo4.setAvaliacaoIndividual(5);
 		
 		Aplicativo aplicativo4 = Aplicativo
 				.builder()
@@ -226,7 +226,7 @@ class LojaAplicativosApiApplicationTests {
 					.nome("Aplicavivo 4")
 					.preco(new BigDecimal("48.90"))
 					.tipo(Tipo.LINUX) // * = estrelas
-					.avaliacaoGeral((byte) 4) // 4 estrelas -> (avaliação geral 4* somada com a avaliação individual 5* divido por 2 = 9, 9/2=4.5 arredondando para 4 estrelas)
+					.avaliacaoGeral(4) // 4 estrelas -> (avaliação geral 4* somada com a avaliação individual 5* divido por 2 = 9, 9/2=4.5 arredondando para 4 estrelas)
 					.avaliacaoIndividual((byte) 5) // 5 estrelas
 					.descricao("Descrição 4")
 					.comentarios(new ArrayList<>())

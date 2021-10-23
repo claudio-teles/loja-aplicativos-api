@@ -52,9 +52,9 @@ public class Aplicativo implements Serializable {
 	@Builder.Default
 	private byte[] executavel = null;
 	@Builder.Default
-	private byte avaliacaoGeral = 0;
+	private int avaliacaoGeral = 0;
 	@Builder.Default
-	private byte avaliacaoIndividual = 0;
+	private int avaliacaoIndividual = 0;
 	@OneToMany
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Comentario> comentarios;
