@@ -6,12 +6,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
-import java.util.Comparator;
+import java.util.List;
 import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.lojaaplicativosapi.dto.AvaliacaoAplicativoDTO;
@@ -33,15 +35,6 @@ public class AplicativoSerivice {
 	private Aplicativo aplicativo;
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(Aplicativo.class);
-	
-	public class Valor implements Comparator<BigDecimal> {
-
-		@Override
-		public int compare(BigDecimal o1, BigDecimal o2) {
-			return Integer.compare(Integer.parseInt(o1.toString()), Integer.parseInt(o2.toString()));
-		}
-		
-	}
 	
 	public Aplicativo cadastrarOuAtualizar(Aplicativo aplicativo) {
 		if (aplicativo != null) {
@@ -73,7 +66,7 @@ public class AplicativoSerivice {
 															aplicacao -> {
 																menorValor = aplicacao.getPreco();
 																aplicativo = aplicacao;
-																LOGGER.info("\n Aplicação Com Menor Preço Encontrada Na Lista: "+aplicacao);
+																LOGGER.info("\n Aplicação Com Menor Preço Encontrado Na Lista: "+aplicacao);
 															}
 														);
 		LOGGER.info("\n =========================================  Menor Preço ==================================================================");
@@ -133,11 +126,16 @@ public class AplicativoSerivice {
 			Comentario c = new Comentario(null, comentarioDTO.getAutor(), comentarioDTO.getConteudo(),
 					LocalDateTime.now());
 			Comentario comentario = comentarioRepository.save(c);
+			System.err.println("====================> "+comentario);
 			
 			app.getComentarios().add(comentario);
 			return cadastrarOuAtualizar(app);
 		}
 		return null;
+	}
+	
+	public List<Aplicativo> encontrarAplicativos(Integer numeroDePaginas, Integer quantidadeItensPagina) {
+		return aplicativoRepository.findAll(PageRequest.of(numeroDePaginas, quantidadeItensPagina, Sort.by("nome"))).getContent();
 	}
 
 }

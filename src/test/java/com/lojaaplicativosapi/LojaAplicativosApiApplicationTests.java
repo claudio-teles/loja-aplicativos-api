@@ -243,4 +243,14 @@ class LojaAplicativosApiApplicationTests {
 		Assertions.assertEquals(1, aplicativoSerivice.fazerComentario(comentarioDTO).getComentarios().size());
 	}
 	
+	@Test 
+	@Order(9)
+	void encontrarAplicativoPorPaginasTeste() {
+		Integer quantidadeItensPagina1 = aplicativoSerivice.encontrarAplicativos(0, 5).size(); // Página 1 -> 5 itens
+		Integer quantidadeItensPagina2 = aplicativoSerivice.encontrarAplicativos(1, 5).size(); // Página 2 -> 5 itens
+		Integer somaTotalDeItensPaginas = quantidadeItensPagina1 + quantidadeItensPagina2; // Soma de itens das duas páginas igual a 10
+		
+		Assertions.assertTrue(somaTotalDeItensPaginas == 10);
+	}
+	
 }
