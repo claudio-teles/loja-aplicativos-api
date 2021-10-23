@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.UUID;
 
@@ -13,15 +14,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lojaaplicativosapi.dto.AvaliacaoAplicativoDTO;
+import com.lojaaplicativosapi.dto.ComentarioDTO;
 import com.lojaaplicativosapi.enumtype.Tipo;
 import com.lojaaplicativosapi.model.aplicativo.Aplicativo;
+import com.lojaaplicativosapi.model.comentario.Comentario;
 import com.lojaaplicativosapi.repository.AplicativoRepository;
+import com.lojaaplicativosapi.repository.ComentarioRepository;
 
 @Service
 public class AplicativoSerivice {
 	
 	@Autowired
 	private AplicativoRepository aplicativoRepository;
+	@Autowired
+	private ComentarioRepository comentarioRepository;
 	private BigDecimal menorValor;
 	private Aplicativo aplicativo;
 	
@@ -104,6 +111,33 @@ public class AplicativoSerivice {
 			e.printStackTrace();
 		}
 		return igual;
+	}
+	
+	public Aplicativo fazerAvaliacaoIndividual(AvaliacaoAplicativoDTO avaliacaoAplicativoDTO) {
+		if (avaliacaoAplicativoDTO != null) {
+			Aplicativo app = localizarPeloId(avaliacaoAplicativoDTO.getUuid());
+			
+			app.setAvaliacaoIndividual(avaliacaoAplicativoDTO.getAvaliacaoIndividual());
+			byte ag = (byte) Math.round(((app.getAvaliacaoGeral() + avaliacaoAplicativoDTO.getAvaliacaoIndividual()) / 2));
+			
+			app.setAvaliacaoGeral(ag);
+			return cadastrarOuAtualizar(app);
+		}
+		return null;
+	}
+	
+	public Aplicativo fazerComentario(ComentarioDTO comentarioDTO) {
+		if (comentarioDTO != null) {
+			Aplicativo app = localizarPeloId(comentarioDTO.getUuidAplicativo());
+			
+			Comentario c = new Comentario(null, comentarioDTO.getAutor(), comentarioDTO.getConteudo(),
+					LocalDateTime.now());
+			Comentario comentario = comentarioRepository.save(c);
+			
+			app.getComentarios().add(comentario);
+			return cadastrarOuAtualizar(app);
+		}
+		return null;
 	}
 
 }

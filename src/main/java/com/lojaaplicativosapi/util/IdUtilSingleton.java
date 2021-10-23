@@ -9,6 +9,7 @@ public class IdUtilSingleton {
 	private UUID uuid;
 	private UUID uuidWindows;
 	private UUID uuidMac;
+	private UUID uuidLinux;
 
 	public IdUtilSingleton() {}
 	
@@ -41,6 +42,14 @@ public class IdUtilSingleton {
 
 	public void setUuidMac(UUID uuidMac) {
 		this.uuidMac = uuidMac;
+	}
+
+	public UUID getUuidLinux() {
+		return uuidLinux;
+	}
+
+	public void setUuidLinux(UUID uuidLinux) {
+		this.uuidLinux = uuidLinux;
 	}
 
 }

@@ -14,6 +14,8 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.lojaaplicativosapi.dto.AvaliacaoAplicativoDTO;
+import com.lojaaplicativosapi.dto.ComentarioDTO;
 import com.lojaaplicativosapi.enumtype.Tipo;
 import com.lojaaplicativosapi.model.aplicativo.Aplicativo;
 import com.lojaaplicativosapi.servico.AplicativoSerivice;
@@ -65,6 +67,7 @@ class LojaAplicativosApiApplicationTests {
 				.nome("Aplicavivo 4")
 				.preco(new BigDecimal("48.90"))
 				.tipo(Tipo.LINUX)
+				.avaliacaoGeral((byte) 4) // 4 estrelas
 				.descricao("Descrição 4")
 				.comentarios(new ArrayList<>())
 				.build();
@@ -142,10 +145,12 @@ class LojaAplicativosApiApplicationTests {
 		
 		Aplicativo a = aplicativoSerivice.cadastrarOuAtualizar(aplicativo1);
 		Aplicativo a2 = aplicativoSerivice.cadastrarOuAtualizar(aplicativo2);
+		Aplicativo a4 = aplicativoSerivice.cadastrarOuAtualizar(aplicativo4);
 		Aplicativo a9 = aplicativoSerivice.cadastrarOuAtualizar(aplicativo9);
 		
 		IdUtilSingleton.getInstancia().setUuid(a.getUuid());
 		IdUtilSingleton.getInstancia().setUuidWindows(a2.getUuid());
+		IdUtilSingleton.getInstancia().setUuidLinux(a4.getUuid());
 		IdUtilSingleton.getInstancia().setUuidMac(a9.getUuid());
 		
 		Assertions.assertNotNull(a.getUuid());
@@ -206,6 +211,36 @@ class LojaAplicativosApiApplicationTests {
 				.build();
 		
 		Assertions.assertEquals(aplicativo9, aplicativoSerivice.encontrarPeloMenorPreco(Tipo.MAC_OS));
+	}
+	
+	@Test 
+	@Order(7)
+	void fazerUmaAvaliacaoIndividualNoAplicativoTeste() {
+		AvaliacaoAplicativoDTO avaliacaoAplicativo4 = new AvaliacaoAplicativoDTO();
+		avaliacaoAplicativo4.setUuid(IdUtilSingleton.getInstancia().getUuidLinux());
+		avaliacaoAplicativo4.setAvaliacaoIndividual((byte) 5);
+		
+		Aplicativo aplicativo4 = Aplicativo
+				.builder()
+				.uuid(IdUtilSingleton.getInstancia().getUuidLinux())
+				.nome("Aplicavivo 4")
+				.preco(new BigDecimal("48.90"))
+				.tipo(Tipo.LINUX) // * = estrelas
+				.avaliacaoGeral((byte) 4) // 4 estrelas -> (avaliação geral 4* somada com a avaliação individual 5* divido por 2 = 9, 9/2=4.5 arredondando para 4 estrelas)
+				.avaliacaoIndividual((byte) 5) // 5 estrelas
+				.descricao("Descrição 4")
+				.comentarios(new ArrayList<>())
+				.build();
+		
+		Assertions.assertEquals(aplicativo4, aplicativoSerivice.fazerAvaliacaoIndividual(avaliacaoAplicativo4));
+	}
+	
+	@Test 
+	@Order(8)
+	void fazerUmComentarioTeste() {
+		ComentarioDTO comentarioDTO = new ComentarioDTO(IdUtilSingleton.getInstancia().getUuidMac(), "Autor 1", "Conteúdo 1");
+		
+		Assertions.assertEquals(1, aplicativoSerivice.fazerComentario(comentarioDTO).getComentarios().size());
 	}
 	
 }
