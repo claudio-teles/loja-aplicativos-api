@@ -1,14 +1,17 @@
 package com.lojaaplicativosapi.servico;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.Comparator;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lojaaplicativosapi.enumtype.Tipo;
 import com.lojaaplicativosapi.model.aplicativo.Aplicativo;
 import com.lojaaplicativosapi.repository.AplicativoRepository;
 
@@ -17,6 +20,17 @@ public class AplicativoSerivice {
 	
 	@Autowired
 	private AplicativoRepository aplicativoRepository;
+	private BigDecimal menorValor;
+	private Aplicativo aplicativo;
+	
+	public class Valor implements Comparator<BigDecimal> {
+
+		@Override
+		public int compare(BigDecimal o1, BigDecimal o2) {
+			return Integer.compare(Integer.parseInt(o1.toString()), Integer.parseInt(o2.toString()));
+		}
+		
+	}
 	
 	public Aplicativo cadastrarOuAtualizar(Aplicativo aplicativo) {
 		if (aplicativo != null) {
@@ -27,6 +41,26 @@ public class AplicativoSerivice {
 	
 	public Aplicativo localizarPeloId(UUID id) {
 		return aplicativoRepository.getById(id);
+	}
+	
+	public Aplicativo encontrar(String nome, Tipo tipo) {
+		return aplicativoRepository.findByNomeAndTipo(nome, tipo);
+	}
+	
+	public Aplicativo encontrarPeloMenorPreco(Tipo tipo) {
+		menorValor = new BigDecimal("0");
+		aplicativo = new Aplicativo();
+		
+		aplicativoRepository.findAllByTipo(tipo).stream()
+												.filter(app -> (app.getPreco().compareTo(menorValor)) == -1)
+												.forEach(
+															aplicacao -> {
+																menorValor = aplicacao.getPreco();
+																aplicativo = aplicacao;
+															}
+														);
+		
+		return aplicativo;
 	}
 	
 	public void upload(String path, UUID uuid) {
