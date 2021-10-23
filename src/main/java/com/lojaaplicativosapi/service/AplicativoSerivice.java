@@ -1,4 +1,4 @@
-package com.lojaaplicativosapi.servico;
+package com.lojaaplicativosapi.service;
 
 import java.io.IOException;
 import java.math.BigDecimal;

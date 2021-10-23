@@ -18,7 +18,7 @@ import com.lojaaplicativosapi.dto.AvaliacaoAplicativoDTO;
 import com.lojaaplicativosapi.dto.ComentarioDTO;
 import com.lojaaplicativosapi.enumtype.Tipo;
 import com.lojaaplicativosapi.model.aplicativo.Aplicativo;
-import com.lojaaplicativosapi.servico.AplicativoSerivice;
+import com.lojaaplicativosapi.service.AplicativoSerivice;
 import com.lojaaplicativosapi.util.IdUtilSingleton;
 
 @SpringBootTest
