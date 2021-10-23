@@ -8,6 +8,8 @@ import java.nio.file.StandardOpenOption;
 import java.util.Comparator;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,8 @@ public class AplicativoSerivice {
 	private AplicativoRepository aplicativoRepository;
 	private BigDecimal menorValor;
 	private Aplicativo aplicativo;
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(Aplicativo.class);
 	
 	public class Valor implements Comparator<BigDecimal> {
 
@@ -48,17 +52,24 @@ public class AplicativoSerivice {
 	}
 	
 	public Aplicativo encontrarPeloMenorPreco(Tipo tipo) {
-		menorValor = new BigDecimal("0");
+		LOGGER.info("\n =========================================  Lista Pelo Tipo ==================================================================");
+		LOGGER.info("\n Lista Completa De Aplicativos Por Tipo: ", aplicativoRepository.findAllByTipo(tipo));
+		LOGGER.info("\n =========================================  Lista Pelo Tipo ==================================================================");
+		
+		menorValor = aplicativoRepository.findAllByTipo(tipo).get(0).getPreco();
 		aplicativo = new Aplicativo();
 		
+		LOGGER.info("\b =========================================  Menor Preço ==================================================================");
 		aplicativoRepository.findAllByTipo(tipo).stream()
 												.filter(app -> (app.getPreco().compareTo(menorValor)) == -1)
 												.forEach(
 															aplicacao -> {
 																menorValor = aplicacao.getPreco();
 																aplicativo = aplicacao;
+																LOGGER.info("\n Aplicação Com Menor Preço Encontrada Na Lista: "+aplicacao);
 															}
 														);
+		LOGGER.info("\n =========================================  Menor Preço ==================================================================");
 		
 		return aplicativo;
 	}

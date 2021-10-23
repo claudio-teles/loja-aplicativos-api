@@ -28,7 +28,7 @@ class LojaAplicativosApiApplicationTests {
 	
 	@Test
 	@Order(1)
-	void criarAplicativo() {
+	void criarAplicativoTeste() {
 		Aplicativo aplicativo1 = Aplicativo
 								.builder()
 									.uuid(null)
@@ -39,17 +39,121 @@ class LojaAplicativosApiApplicationTests {
 									.comentarios(new ArrayList<>())
 								.build();
 		
+		Aplicativo aplicativo2 = Aplicativo
+				.builder()
+				.uuid(null)
+				.nome("Aplicavivo 2")
+				.preco(new BigDecimal("9.90"))
+				.tipo(Tipo.WINDOWS)
+				.descricao("Descrição 2")
+				.comentarios(new ArrayList<>())
+				.build();
+		
+		Aplicativo aplicativo3 = Aplicativo
+				.builder()
+				.uuid(null)
+				.nome("Aplicavivo 3")
+				.preco(new BigDecimal("32.38"))
+				.tipo(Tipo.IOS)
+				.descricao("Descrição 3")
+				.comentarios(new ArrayList<>())
+				.build();
+		
+		Aplicativo aplicativo4 = Aplicativo
+				.builder()
+				.uuid(null)
+				.nome("Aplicavivo 4")
+				.preco(new BigDecimal("48.90"))
+				.tipo(Tipo.LINUX)
+				.descricao("Descrição 4")
+				.comentarios(new ArrayList<>())
+				.build();
+		
+		Aplicativo aplicativo5 = Aplicativo
+				.builder()
+				.uuid(null)
+				.nome("Aplicavivo 5")
+				.preco(new BigDecimal("78.12"))
+				.tipo(Tipo.ANDROID)
+				.descricao("Descrição 5")
+				.comentarios(new ArrayList<>())
+				.build();
+		
+		Aplicativo aplicativo6 = Aplicativo
+				.builder()
+				.uuid(null)
+				.nome("Aplicavivo 6")
+				.preco(new BigDecimal("43.87"))
+				.tipo(Tipo.WINDOWS)
+				.descricao("Descrição 6")
+				.comentarios(new ArrayList<>())
+				.build();
+		
+		Aplicativo aplicativo7 = Aplicativo
+				.builder()
+				.uuid(null)
+				.nome("Aplicavivo 7")
+				.preco(new BigDecimal("27.36"))
+				.tipo(Tipo.IOS)
+				.descricao("Descrição 7")
+				.comentarios(new ArrayList<>())
+				.build();
+		
+		Aplicativo aplicativo8 = Aplicativo
+				.builder()
+				.uuid(null)
+				.nome("Aplicavivo 8")
+				.preco(new BigDecimal("1890.20"))
+				.tipo(Tipo.MAC_OS)
+				.descricao("Descrição 8")
+				.comentarios(new ArrayList<>())
+				.build();
+		
+		Aplicativo aplicativo9 = Aplicativo
+				.builder()
+				.uuid(null)
+				.nome("Aplicavivo 9")
+				.preco(new BigDecimal("512.99"))
+				.tipo(Tipo.MAC_OS)
+				.descricao("Descrição 9")
+				.comentarios(new ArrayList<>())
+				.build();
+		
+		Aplicativo aplicativo10 = Aplicativo
+				.builder()
+				.uuid(null)
+				.nome("Aplicavivo 10")
+				.preco(new BigDecimal("90.78"))
+				.tipo(Tipo.ANDROID)
+				.descricao("Descrição 10")
+				.comentarios(new ArrayList<>())
+				.build();
+		
 		aplicativoSerivice.cadastrarOuAtualizar(aplicativo1);
+		aplicativoSerivice.cadastrarOuAtualizar(aplicativo2);
+		aplicativoSerivice.cadastrarOuAtualizar(aplicativo3);
+		aplicativoSerivice.cadastrarOuAtualizar(aplicativo4);
+		aplicativoSerivice.cadastrarOuAtualizar(aplicativo5);
+		aplicativoSerivice.cadastrarOuAtualizar(aplicativo6);
+		aplicativoSerivice.cadastrarOuAtualizar(aplicativo7);
+		aplicativoSerivice.cadastrarOuAtualizar(aplicativo8);
+		aplicativoSerivice.cadastrarOuAtualizar(aplicativo9);
+		aplicativoSerivice.cadastrarOuAtualizar(aplicativo10);
 		
 		Aplicativo a = aplicativoSerivice.cadastrarOuAtualizar(aplicativo1);
+		Aplicativo a2 = aplicativoSerivice.cadastrarOuAtualizar(aplicativo2);
+		Aplicativo a9 = aplicativoSerivice.cadastrarOuAtualizar(aplicativo9);
+		
 		IdUtilSingleton.getInstancia().setUuid(a.getUuid());
+		IdUtilSingleton.getInstancia().setUuidWindows(a2.getUuid());
+		IdUtilSingleton.getInstancia().setUuidMac(a9.getUuid());
 		
 		Assertions.assertNotNull(a.getUuid());
 	}
 	
 	@Test
 	@Order(2)
-	void fazerUploadExecutavel() {
+	void fazerUploadExecutavelTeste() {
 		aplicativoSerivice.upload("upload_teste/app1.apk", IdUtilSingleton.getInstancia().getUuid());
 		
 		System.out.println("UUID: "+IdUtilSingleton.getInstancia().getUuid());
@@ -58,18 +162,50 @@ class LojaAplicativosApiApplicationTests {
 	
 	@Test
 	@Order(3)
-	void fazerDownloadExecutavel() {
+	void fazerDownloadExecutavelTeste() {
 		Assertions.assertTrue(aplicativoSerivice.download("download-teste", "app1.apk", IdUtilSingleton.getInstancia().getUuid()));
 	}
 	
 	@Test
 	@Order(4)
-	void deleteArquivoBaixado() {
+	void deleteArquivoBaixadoTeste() {
 		try {
 			Assertions.assertTrue(Files.deleteIfExists(Path.of("download-teste/app1.apk")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Test
+	@Order(5)
+	void encontraPeloNomeTipoTeste() {
+		Aplicativo aplicativo2 = Aplicativo
+				.builder()
+				.uuid(IdUtilSingleton.getInstancia().getUuidWindows())
+				.nome("Aplicavivo 2")
+				.preco(new BigDecimal("9.90"))
+				.tipo(Tipo.WINDOWS)
+				.descricao("Descrição 2")
+				.comentarios(new ArrayList<>())
+				.build();
+		
+		Assertions.assertEquals(aplicativo2, aplicativoSerivice.encontrar("Aplicavivo 2", Tipo.WINDOWS));
+	}
+	
+	@Test
+	@Order(6)
+	void encontrarPeloMenorPrecoTipoTeste() {
+		Aplicativo aplicativo9 = Aplicativo
+				.builder()
+				.uuid(IdUtilSingleton.getInstancia().getUuidMac())
+				.nome("Aplicavivo 9")
+				.preco(new BigDecimal("512.99"))
+				.tipo(Tipo.MAC_OS)
+				.descricao("Descrição 9")
+				.comentarios(new ArrayList<>())
+				.build();
+		
+		Assertions.assertEquals(aplicativo9, aplicativoSerivice.encontrarPeloMenorPreco(Tipo.MAC_OS));
 	}
 	
 }
