@@ -43,93 +43,93 @@ class LojaAplicativosApiApplicationTests {
 		
 		Aplicativo aplicativo2 = Aplicativo
 				.builder()
-				.uuid(null)
-				.nome("Aplicavivo 2")
-				.preco(new BigDecimal("9.90"))
-				.tipo(Tipo.WINDOWS)
-				.descricao("Descrição 2")
-				.comentarios(new ArrayList<>())
+					.uuid(null)
+					.nome("Aplicavivo 2")
+					.preco(new BigDecimal("9.90"))
+					.tipo(Tipo.WINDOWS)
+					.descricao("Descrição 2")
+					.comentarios(new ArrayList<>())
 				.build();
 		
 		Aplicativo aplicativo3 = Aplicativo
 				.builder()
-				.uuid(null)
-				.nome("Aplicavivo 3")
-				.preco(new BigDecimal("32.38"))
-				.tipo(Tipo.IOS)
-				.descricao("Descrição 3")
-				.comentarios(new ArrayList<>())
+					.uuid(null)
+					.nome("Aplicavivo 3")
+					.preco(new BigDecimal("32.38"))
+					.tipo(Tipo.IOS)
+					.descricao("Descrição 3")
+					.comentarios(new ArrayList<>())
 				.build();
 		
 		Aplicativo aplicativo4 = Aplicativo
 				.builder()
-				.uuid(null)
-				.nome("Aplicavivo 4")
-				.preco(new BigDecimal("48.90"))
-				.tipo(Tipo.LINUX)
-				.avaliacaoGeral((byte) 4) // 4 estrelas
-				.descricao("Descrição 4")
-				.comentarios(new ArrayList<>())
-				.build();
+					.uuid(null)
+					.nome("Aplicavivo 4")
+					.preco(new BigDecimal("48.90"))
+					.tipo(Tipo.LINUX)
+					.avaliacaoGeral((byte) 4) // 4 estrelas
+					.descricao("Descrição 4")
+					.comentarios(new ArrayList<>())
+					.build();
 		
 		Aplicativo aplicativo5 = Aplicativo
 				.builder()
-				.uuid(null)
-				.nome("Aplicavivo 5")
-				.preco(new BigDecimal("78.12"))
-				.tipo(Tipo.ANDROID)
-				.descricao("Descrição 5")
-				.comentarios(new ArrayList<>())
+					.uuid(null)
+					.nome("Aplicavivo 5")
+					.preco(new BigDecimal("78.12"))
+					.tipo(Tipo.ANDROID)
+					.descricao("Descrição 5")
+					.comentarios(new ArrayList<>())
 				.build();
 		
 		Aplicativo aplicativo6 = Aplicativo
 				.builder()
-				.uuid(null)
-				.nome("Aplicavivo 6")
-				.preco(new BigDecimal("43.87"))
-				.tipo(Tipo.WINDOWS)
-				.descricao("Descrição 6")
-				.comentarios(new ArrayList<>())
+					.uuid(null)
+					.nome("Aplicavivo 6")
+					.preco(new BigDecimal("43.87"))
+					.tipo(Tipo.WINDOWS)
+					.descricao("Descrição 6")
+					.comentarios(new ArrayList<>())
 				.build();
 		
 		Aplicativo aplicativo7 = Aplicativo
 				.builder()
-				.uuid(null)
-				.nome("Aplicavivo 7")
-				.preco(new BigDecimal("27.36"))
-				.tipo(Tipo.IOS)
-				.descricao("Descrição 7")
-				.comentarios(new ArrayList<>())
+					.uuid(null)
+					.nome("Aplicavivo 7")
+					.preco(new BigDecimal("27.36"))
+					.tipo(Tipo.IOS)
+					.descricao("Descrição 7")
+					.comentarios(new ArrayList<>())
 				.build();
 		
 		Aplicativo aplicativo8 = Aplicativo
 				.builder()
-				.uuid(null)
-				.nome("Aplicavivo 8")
-				.preco(new BigDecimal("1890.20"))
-				.tipo(Tipo.MAC_OS)
-				.descricao("Descrição 8")
-				.comentarios(new ArrayList<>())
+					.uuid(null)
+					.nome("Aplicavivo 8")
+					.preco(new BigDecimal("1890.20"))
+					.tipo(Tipo.MAC_OS)
+					.descricao("Descrição 8")
+					.comentarios(new ArrayList<>())
 				.build();
 		
 		Aplicativo aplicativo9 = Aplicativo
 				.builder()
-				.uuid(null)
-				.nome("Aplicavivo 9")
-				.preco(new BigDecimal("512.99"))
-				.tipo(Tipo.MAC_OS)
-				.descricao("Descrição 9")
-				.comentarios(new ArrayList<>())
+					.uuid(null)
+					.nome("Aplicavivo 9")
+					.preco(new BigDecimal("512.99"))
+					.tipo(Tipo.MAC_OS)
+					.descricao("Descrição 9")
+					.comentarios(new ArrayList<>())
 				.build();
 		
 		Aplicativo aplicativo10 = Aplicativo
 				.builder()
-				.uuid(null)
-				.nome("Aplicavivo 10")
-				.preco(new BigDecimal("90.78"))
-				.tipo(Tipo.ANDROID)
-				.descricao("Descrição 10")
-				.comentarios(new ArrayList<>())
+					.uuid(null)
+					.nome("Aplicavivo 10")
+					.preco(new BigDecimal("90.78"))
+					.tipo(Tipo.ANDROID)
+					.descricao("Descrição 10")
+					.comentarios(new ArrayList<>())
 				.build();
 		
 		aplicativoSerivice.cadastrarOuAtualizar(aplicativo1);
@@ -186,12 +186,12 @@ class LojaAplicativosApiApplicationTests {
 	void encontraPeloNomeTipoTeste() {
 		Aplicativo aplicativo2 = Aplicativo
 				.builder()
-				.uuid(IdUtilSingleton.getInstancia().getUuidWindows())
-				.nome("Aplicavivo 2")
-				.preco(new BigDecimal("9.90"))
-				.tipo(Tipo.WINDOWS)
-				.descricao("Descrição 2")
-				.comentarios(new ArrayList<>())
+					.uuid(IdUtilSingleton.getInstancia().getUuidWindows())
+					.nome("Aplicavivo 2")
+					.preco(new BigDecimal("9.90"))
+					.tipo(Tipo.WINDOWS)
+					.descricao("Descrição 2")
+					.comentarios(new ArrayList<>())
 				.build();
 		
 		Assertions.assertEquals(aplicativo2, aplicativoSerivice.encontrar("Aplicavivo 2", Tipo.WINDOWS));
@@ -202,12 +202,12 @@ class LojaAplicativosApiApplicationTests {
 	void encontrarPeloMenorPrecoTipoTeste() {
 		Aplicativo aplicativo9 = Aplicativo
 				.builder()
-				.uuid(IdUtilSingleton.getInstancia().getUuidMac())
-				.nome("Aplicavivo 9")
-				.preco(new BigDecimal("512.99"))
-				.tipo(Tipo.MAC_OS)
-				.descricao("Descrição 9")
-				.comentarios(new ArrayList<>())
+					.uuid(IdUtilSingleton.getInstancia().getUuidMac())
+					.nome("Aplicavivo 9")
+					.preco(new BigDecimal("512.99"))
+					.tipo(Tipo.MAC_OS)
+					.descricao("Descrição 9")
+					.comentarios(new ArrayList<>())
 				.build();
 		
 		Assertions.assertEquals(aplicativo9, aplicativoSerivice.encontrarPeloMenorPreco(Tipo.MAC_OS));
@@ -222,14 +222,14 @@ class LojaAplicativosApiApplicationTests {
 		
 		Aplicativo aplicativo4 = Aplicativo
 				.builder()
-				.uuid(IdUtilSingleton.getInstancia().getUuidLinux())
-				.nome("Aplicavivo 4")
-				.preco(new BigDecimal("48.90"))
-				.tipo(Tipo.LINUX) // * = estrelas
-				.avaliacaoGeral((byte) 4) // 4 estrelas -> (avaliação geral 4* somada com a avaliação individual 5* divido por 2 = 9, 9/2=4.5 arredondando para 4 estrelas)
-				.avaliacaoIndividual((byte) 5) // 5 estrelas
-				.descricao("Descrição 4")
-				.comentarios(new ArrayList<>())
+					.uuid(IdUtilSingleton.getInstancia().getUuidLinux())
+					.nome("Aplicavivo 4")
+					.preco(new BigDecimal("48.90"))
+					.tipo(Tipo.LINUX) // * = estrelas
+					.avaliacaoGeral((byte) 4) // 4 estrelas -> (avaliação geral 4* somada com a avaliação individual 5* divido por 2 = 9, 9/2=4.5 arredondando para 4 estrelas)
+					.avaliacaoIndividual((byte) 5) // 5 estrelas
+					.descricao("Descrição 4")
+					.comentarios(new ArrayList<>())
 				.build();
 		
 		Assertions.assertEquals(aplicativo4, aplicativoSerivice.fazerAvaliacaoIndividual(avaliacaoAplicativo4));
