@@ -8,50 +8,7 @@ create table comentario (uuid binary(16) not null, autour varchar(25) not null, 
 alter table aplicativo_comentarios add constraint UK_29sw2t1jh8ly5j6lqpremffjh unique (comentarios_uuid)
 alter table aplicativo_comentarios add constraint FKpht0aefaaeahxvremqte6h8q8 foreign key (comentarios_uuid) references comentario
 alter table aplicativo_comentarios add constraint FK18kjrr6p0umgrq9mpre7latb9 foreign key (aplicativo_uuid) references aplicativo
-INSERT INTO APLICATIVO VALUES('daceddb18fb6425280aec3ff751a5130',0,0,'Descri\u00e7\u00e3o 1',NULL,'Aplicavivo 1',18.90,0)
-COMMIT
-INSERT INTO APLICATIVO VALUES('cb4318ee64224423b25ce311c935680b',0,0,'Descri\u00e7\u00e3o 2',NULL,'Aplicavivo 2',9.90,2)
-COMMIT
-INSERT INTO APLICATIVO VALUES('592a31083270405cb30de3bfe91f7b49',0,0,'Descri\u00e7\u00e3o 3',NULL,'Aplicavivo 3',32.38,1)
-COMMIT
-INSERT INTO APLICATIVO VALUES('b74f6ccd249b46ada0cdee6bb994ab92',4,0,'Descri\u00e7\u00e3o 4',NULL,'Aplicavivo 4',48.90,4)
-COMMIT
-INSERT INTO APLICATIVO VALUES('10e795b494b74a0eb3aa53570790f0fb',0,0,'Descri\u00e7\u00e3o 5',NULL,'Aplicavivo 5',78.12,0)
-COMMIT
-INSERT INTO APLICATIVO VALUES('9318fc5eea294aebb45cb0eb12801b07',0,0,'Descri\u00e7\u00e3o 6',NULL,'Aplicavivo 6',43.87,2)
-COMMIT
-INSERT INTO APLICATIVO VALUES('402fd81a5a4b47f095db7c677ebdc9a6',0,0,'Descri\u00e7\u00e3o 7',NULL,'Aplicavivo 7',27.36,1)
-COMMIT
-INSERT INTO APLICATIVO VALUES('a6ffe395c9094f74acf2f79343e2fde8',0,0,'Descri\u00e7\u00e3o 8',NULL,'Aplicavivo 8',1890.20,3)
-COMMIT
-INSERT INTO APLICATIVO VALUES('bd1a30381b544611a9f392989e586018',0,0,'Descri\u00e7\u00e3o 9',NULL,'Aplicavivo 9',512.99,3)
-COMMIT
-INSERT INTO APLICATIVO VALUES('680bebf8b017424cb08413855c15e582',0,0,'Descri\u00e7\u00e3o 10',NULL,'Aplicavivo 10',90.78,0)
-COMMIT
-/*C1*/SET SCHEMA SYSTEM_LOBS
-INSERT INTO LOB_IDS VALUES(2,0,0,30)
-ALTER SEQUENCE SYSTEM_LOBS.LOB_ID RESTART WITH 3
-COMMIT
-/*C13*/DELETE FROM APLICATIVO WHERE UUID='daceddb18fb6425280aec3ff751a5130'
-INSERT INTO APLICATIVO VALUES('daceddb18fb6425280aec3ff751a5130',0,0,'Descri\u00e7\u00e3o 1',2,'Aplicavivo 1',18.90,0)
-SET SCHEMA SYSTEM_LOBS
-DELETE FROM LOB_IDS WHERE LOB_ID=2
-INSERT INTO LOB_IDS VALUES(2,0,1,30)
-COMMIT
-SET SCHEMA PUBLIC
-DELETE FROM APLICATIVO WHERE UUID='b74f6ccd249b46ada0cdee6bb994ab92'
-INSERT INTO APLICATIVO VALUES('b74f6ccd249b46ada0cdee6bb994ab92',4,5,'Descri\u00e7\u00e3o 4',NULL,'Aplicavivo 4',48.90,4)
-COMMIT
-INSERT INTO COMENTARIO VALUES('8412b4d9618144c7a984e95b63d71cc7','Autor 1','Conte\u00fado 1','2021-10-25 16:15:41.802162')
-COMMIT
-INSERT INTO APLICATIVO_COMENTARIOS VALUES('bd1a30381b544611a9f392989e586018','8412b4d9618144c7a984e95b63d71cc7')
-COMMIT
 drop table if exists aplicativo CASCADE 
-SET SCHEMA SYSTEM_LOBS
-DELETE FROM LOB_IDS WHERE LOB_ID=2
-INSERT INTO LOB_IDS VALUES(2,0,0,30)
-COMMIT
-SET SCHEMA PUBLIC
 drop table if exists aplicativo_comentarios CASCADE 
 drop table if exists comentario CASCADE 
 DISCONNECT
