@@ -1,0 +1,38 @@
+/*C32*/SET SCHEMA PUBLIC
+\u000d\u000a    drop table if exists aplicativo CASCADE 
+\u000d\u000a    drop table if exists aplicativo_comentarios CASCADE 
+\u000d\u000a    drop table if exists comentario CASCADE 
+\u000d\u000a    create table aplicativo (\u000d\u000a       uuid binary(16) not null,\u000d\u000a        avaliacao_geral integer not null,\u000d\u000a        avaliacao_individual integer not null,\u000d\u000a        descricao varchar(120) not null,\u000d\u000a        executavel blob(255),\u000d\u000a        nome varchar(50) not null,\u000d\u000a        preco numeric(19,2),\u000d\u000a        tipo integer not null,\u000d\u000a        primary key (uuid)\u000d\u000a    )
+\u000d\u000a    create table aplicativo_comentarios (\u000d\u000a       aplicativo_uuid binary(16) not null,\u000d\u000a        comentarios_uuid binary(16) not null\u000d\u000a    )
+\u000d\u000a    create table comentario (\u000d\u000a       uuid binary(16) not null,\u000d\u000a        autour varchar(25) not null,\u000d\u000a        conteudo varchar(500) not null,\u000d\u000a        data timestamp,\u000d\u000a        primary key (uuid)\u000d\u000a    )
+\u000d\u000a    alter table aplicativo_comentarios \u000d\u000a       add constraint UK_29sw2t1jh8ly5j6lqpremffjh unique (comentarios_uuid)
+\u000d\u000a    alter table aplicativo_comentarios \u000d\u000a       add constraint FKpht0aefaaeahxvremqte6h8q8 \u000d\u000a       foreign key (comentarios_uuid) \u000d\u000a       references comentario
+\u000d\u000a    alter table aplicativo_comentarios \u000d\u000a       add constraint FK18kjrr6p0umgrq9mpre7latb9 \u000d\u000a       foreign key (aplicativo_uuid) \u000d\u000a       references aplicativo
+INSERT INTO APLICATIVO VALUES('af9789bc92b640cfaa2b0c73d207baf8',0,0,'Descri\u00e7\u00e3o 1',NULL,'Aplicativo 1',48.65,0)
+COMMIT
+INSERT INTO APLICATIVO VALUES('89271ecb7c0e4f0a8c9f38e01c897b0c',0,0,'Descri\u00e7\u00e3o 2',NULL,'Aplicativo 2',35.17,2)
+COMMIT
+INSERT INTO APLICATIVO VALUES('8cbbdd25b0ca4713822e4762c75fea63',0,0,'Descri\u00e7\u00e3o 3',NULL,'Aplicativo 3',108.94,1)
+COMMIT
+\u000d\u000a    drop table if exists aplicativo CASCADE 
+\u000d\u000a    drop table if exists aplicativo_comentarios CASCADE 
+\u000d\u000a    drop table if exists comentario CASCADE 
+DISCONNECT
+/*C33*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C34*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C35*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C36*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C37*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C38*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C39*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C40*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C41*/SET SCHEMA PUBLIC
+DISCONNECT

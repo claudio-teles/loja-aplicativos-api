@@ -1,0 +1,4 @@
+FROM adoptopenjdk/openjdk11:ubi
+ADD target/loja-aplicativos-api-0.0.1.jar loja-aplicativos-api-0.0.1.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "loja-aplicativos-api-0.0.1.jar"]

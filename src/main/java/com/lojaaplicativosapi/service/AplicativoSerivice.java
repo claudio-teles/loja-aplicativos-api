@@ -52,14 +52,11 @@ public class AplicativoSerivice {
 	}
 	
 	public Aplicativo encontrarPeloMenorPreco(Tipo tipo) {
-		LOGGER.info("\n =========================================  Lista Pelo Tipo ==================================================================");
 		LOGGER.info("\n Lista Completa De Aplicativos Por Tipo: ", aplicativoRepository.findAllByTipo(tipo));
-		LOGGER.info("\n =========================================  Lista Pelo Tipo ==================================================================");
 		
 		menorValor = aplicativoRepository.findAllByTipo(tipo).get(0).getPreco();
 		aplicativo = new Aplicativo();
 		
-		LOGGER.info("\b =========================================  Menor Preço ==================================================================");
 		aplicativoRepository.findAllByTipo(tipo).stream()
 												.filter(app -> (app.getPreco().compareTo(menorValor)) == -1)
 												.forEach(
@@ -69,7 +66,6 @@ public class AplicativoSerivice {
 																LOGGER.info("\n Aplicação Com Menor Preço Encontrado Na Lista: "+aplicacao);
 															}
 														);
-		LOGGER.info("\n =========================================  Menor Preço ==================================================================");
 		
 		return aplicativo;
 	}
@@ -126,7 +122,6 @@ public class AplicativoSerivice {
 			Comentario c = new Comentario(null, comentarioDTO.getAutor(), comentarioDTO.getConteudo(),
 					LocalDateTime.now());
 			Comentario comentario = comentarioRepository.save(c);
-			System.err.println("====================> "+comentario);
 			
 			app.getComentarios().add(comentario);
 			return cadastrarOuAtualizar(app);

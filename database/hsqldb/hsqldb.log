@@ -1,38 +1,75 @@
-/*C32*/SET SCHEMA PUBLIC
-\u000d\u000a    drop table if exists aplicativo CASCADE 
-\u000d\u000a    drop table if exists aplicativo_comentarios CASCADE 
-\u000d\u000a    drop table if exists comentario CASCADE 
-\u000d\u000a    create table aplicativo (\u000d\u000a       uuid binary(16) not null,\u000d\u000a        avaliacao_geral integer not null,\u000d\u000a        avaliacao_individual integer not null,\u000d\u000a        descricao varchar(120) not null,\u000d\u000a        executavel blob(255),\u000d\u000a        nome varchar(50) not null,\u000d\u000a        preco numeric(19,2),\u000d\u000a        tipo integer not null,\u000d\u000a        primary key (uuid)\u000d\u000a    )
-\u000d\u000a    create table aplicativo_comentarios (\u000d\u000a       aplicativo_uuid binary(16) not null,\u000d\u000a        comentarios_uuid binary(16) not null\u000d\u000a    )
-\u000d\u000a    create table comentario (\u000d\u000a       uuid binary(16) not null,\u000d\u000a        autour varchar(25) not null,\u000d\u000a        conteudo varchar(500) not null,\u000d\u000a        data timestamp,\u000d\u000a        primary key (uuid)\u000d\u000a    )
-\u000d\u000a    alter table aplicativo_comentarios \u000d\u000a       add constraint UK_29sw2t1jh8ly5j6lqpremffjh unique (comentarios_uuid)
-\u000d\u000a    alter table aplicativo_comentarios \u000d\u000a       add constraint FKpht0aefaaeahxvremqte6h8q8 \u000d\u000a       foreign key (comentarios_uuid) \u000d\u000a       references comentario
-\u000d\u000a    alter table aplicativo_comentarios \u000d\u000a       add constraint FK18kjrr6p0umgrq9mpre7latb9 \u000d\u000a       foreign key (aplicativo_uuid) \u000d\u000a       references aplicativo
-INSERT INTO APLICATIVO VALUES('af9789bc92b640cfaa2b0c73d207baf8',0,0,'Descri\u00e7\u00e3o 1',NULL,'Aplicativo 1',48.65,0)
+/*C13*/SET SCHEMA PUBLIC
+drop table if exists aplicativo CASCADE 
+drop table if exists aplicativo_comentarios CASCADE 
+drop table if exists comentario CASCADE 
+create table aplicativo (uuid binary(16) not null, avaliacao_geral integer not null, avaliacao_individual integer not null, descricao varchar(120) not null, executavel blob(255), nome varchar(50) not null, preco numeric(19,2), tipo integer not null, primary key (uuid))
+create table aplicativo_comentarios (aplicativo_uuid binary(16) not null, comentarios_uuid binary(16) not null)
+create table comentario (uuid binary(16) not null, autour varchar(25) not null, conteudo varchar(500) not null, data timestamp, primary key (uuid))
+alter table aplicativo_comentarios add constraint UK_29sw2t1jh8ly5j6lqpremffjh unique (comentarios_uuid)
+alter table aplicativo_comentarios add constraint FKpht0aefaaeahxvremqte6h8q8 foreign key (comentarios_uuid) references comentario
+alter table aplicativo_comentarios add constraint FK18kjrr6p0umgrq9mpre7latb9 foreign key (aplicativo_uuid) references aplicativo
+INSERT INTO APLICATIVO VALUES('daceddb18fb6425280aec3ff751a5130',0,0,'Descri\u00e7\u00e3o 1',NULL,'Aplicavivo 1',18.90,0)
 COMMIT
-INSERT INTO APLICATIVO VALUES('89271ecb7c0e4f0a8c9f38e01c897b0c',0,0,'Descri\u00e7\u00e3o 2',NULL,'Aplicativo 2',35.17,2)
+INSERT INTO APLICATIVO VALUES('cb4318ee64224423b25ce311c935680b',0,0,'Descri\u00e7\u00e3o 2',NULL,'Aplicavivo 2',9.90,2)
 COMMIT
-INSERT INTO APLICATIVO VALUES('8cbbdd25b0ca4713822e4762c75fea63',0,0,'Descri\u00e7\u00e3o 3',NULL,'Aplicativo 3',108.94,1)
+INSERT INTO APLICATIVO VALUES('592a31083270405cb30de3bfe91f7b49',0,0,'Descri\u00e7\u00e3o 3',NULL,'Aplicavivo 3',32.38,1)
 COMMIT
-\u000d\u000a    drop table if exists aplicativo CASCADE 
-\u000d\u000a    drop table if exists aplicativo_comentarios CASCADE 
-\u000d\u000a    drop table if exists comentario CASCADE 
+INSERT INTO APLICATIVO VALUES('b74f6ccd249b46ada0cdee6bb994ab92',4,0,'Descri\u00e7\u00e3o 4',NULL,'Aplicavivo 4',48.90,4)
+COMMIT
+INSERT INTO APLICATIVO VALUES('10e795b494b74a0eb3aa53570790f0fb',0,0,'Descri\u00e7\u00e3o 5',NULL,'Aplicavivo 5',78.12,0)
+COMMIT
+INSERT INTO APLICATIVO VALUES('9318fc5eea294aebb45cb0eb12801b07',0,0,'Descri\u00e7\u00e3o 6',NULL,'Aplicavivo 6',43.87,2)
+COMMIT
+INSERT INTO APLICATIVO VALUES('402fd81a5a4b47f095db7c677ebdc9a6',0,0,'Descri\u00e7\u00e3o 7',NULL,'Aplicavivo 7',27.36,1)
+COMMIT
+INSERT INTO APLICATIVO VALUES('a6ffe395c9094f74acf2f79343e2fde8',0,0,'Descri\u00e7\u00e3o 8',NULL,'Aplicavivo 8',1890.20,3)
+COMMIT
+INSERT INTO APLICATIVO VALUES('bd1a30381b544611a9f392989e586018',0,0,'Descri\u00e7\u00e3o 9',NULL,'Aplicavivo 9',512.99,3)
+COMMIT
+INSERT INTO APLICATIVO VALUES('680bebf8b017424cb08413855c15e582',0,0,'Descri\u00e7\u00e3o 10',NULL,'Aplicavivo 10',90.78,0)
+COMMIT
+/*C1*/SET SCHEMA SYSTEM_LOBS
+INSERT INTO LOB_IDS VALUES(2,0,0,30)
+ALTER SEQUENCE SYSTEM_LOBS.LOB_ID RESTART WITH 3
+COMMIT
+/*C13*/DELETE FROM APLICATIVO WHERE UUID='daceddb18fb6425280aec3ff751a5130'
+INSERT INTO APLICATIVO VALUES('daceddb18fb6425280aec3ff751a5130',0,0,'Descri\u00e7\u00e3o 1',2,'Aplicavivo 1',18.90,0)
+SET SCHEMA SYSTEM_LOBS
+DELETE FROM LOB_IDS WHERE LOB_ID=2
+INSERT INTO LOB_IDS VALUES(2,0,1,30)
+COMMIT
+SET SCHEMA PUBLIC
+DELETE FROM APLICATIVO WHERE UUID='b74f6ccd249b46ada0cdee6bb994ab92'
+INSERT INTO APLICATIVO VALUES('b74f6ccd249b46ada0cdee6bb994ab92',4,5,'Descri\u00e7\u00e3o 4',NULL,'Aplicavivo 4',48.90,4)
+COMMIT
+INSERT INTO COMENTARIO VALUES('8412b4d9618144c7a984e95b63d71cc7','Autor 1','Conte\u00fado 1','2021-10-25 16:15:41.802162')
+COMMIT
+INSERT INTO APLICATIVO_COMENTARIOS VALUES('bd1a30381b544611a9f392989e586018','8412b4d9618144c7a984e95b63d71cc7')
+COMMIT
+drop table if exists aplicativo CASCADE 
+SET SCHEMA SYSTEM_LOBS
+DELETE FROM LOB_IDS WHERE LOB_ID=2
+INSERT INTO LOB_IDS VALUES(2,0,0,30)
+COMMIT
+SET SCHEMA PUBLIC
+drop table if exists aplicativo_comentarios CASCADE 
+drop table if exists comentario CASCADE 
 DISCONNECT
-/*C33*/SET SCHEMA PUBLIC
+/*C14*/SET SCHEMA PUBLIC
 DISCONNECT
-/*C34*/SET SCHEMA PUBLIC
+/*C15*/SET SCHEMA PUBLIC
 DISCONNECT
-/*C35*/SET SCHEMA PUBLIC
+/*C16*/SET SCHEMA PUBLIC
 DISCONNECT
-/*C36*/SET SCHEMA PUBLIC
+/*C17*/SET SCHEMA PUBLIC
 DISCONNECT
-/*C37*/SET SCHEMA PUBLIC
+/*C18*/SET SCHEMA PUBLIC
 DISCONNECT
-/*C38*/SET SCHEMA PUBLIC
+/*C19*/SET SCHEMA PUBLIC
 DISCONNECT
-/*C39*/SET SCHEMA PUBLIC
+/*C20*/SET SCHEMA PUBLIC
 DISCONNECT
-/*C40*/SET SCHEMA PUBLIC
+/*C21*/SET SCHEMA PUBLIC
 DISCONNECT
-/*C41*/SET SCHEMA PUBLIC
+/*C22*/SET SCHEMA PUBLIC
 DISCONNECT
